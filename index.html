@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Countdown to New Year</title>
+
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+
+  <body>
+    <!-- Background Video -->
+    <video src="./video/fireworks.mp4" muted autoplay loop></video>
+
+    <!-- Audio -->
+    <audio id="fireworksAudio" loop>
+      <source
+        src="./Tieng-phao-hoa-no-tren-bau-troi-www_tiengdong_com.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <!-- Sound Hint -->
+    <div id="soundHint">🔊 Tap anywhere to enable sound</div>
+
+    <div class="container">
+      <h2>
+        <span>Countdown to New Year </span>
+        <span id="year">Calculating...</span>
+      </h2>
+
+      <div class="countdown">
+        <div id="day">NA</div>
+        <div id="hour">NA</div>
+        <div id="minute">NA</div>
+        <div id="second">NA</div>
+      </div>
+    </div>
+
+    <!-- Button -->
+   <a href="index1.html" class="btn" id="specialBtn">
+  Something Special 👉
+</a>
+
+
+    <!-- Scripts -->
+   <!-- <script>
+      /* 🔊 Enable Sound on First Interaction */
+      document.addEventListener("DOMContentLoaded", () => {
+        const audio = document.getElementById("fireworksAudio");
+        const hint = document.getElementById("soundHint");
+
+        function enableSound() {
+          audio.play();
+          hint.style.display = "none";
+          document.removeEventListener("click", enableSound);
+          document.removeEventListener("touchstart", enableSound);
+        }
+
+        document.addEventListener("click", enableSound);
+        document.addEventListener("touchstart", enableSound);
+      });
+
+      /* ⏳ Countdown Logic */
+      function updateCountdown() {
+        const today = new Date();
+        const nextYear = today.getFullYear() + 1;
+        const countDate = new Date(`Jan 1, ${nextYear} 00:00:00`).getTime();
+        const now = new Date().getTime();
+
+        const gap = countDate - now;
+
+        const second = 1000;
+        const minute = second * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+
+        document.getElementById("day").innerText = Math.floor(gap / day);
+        document.getElementById("hour").innerText = Math.floor(
+          (gap % day) / hour
+        );
+        document.getElementById("minute").innerText = Math.floor(
+          (gap % hour) / minute
+        );
+        document.getElementById("second").innerText = Math.floor(
+          (gap % minute) / second
+        );
+        document.getElementById("year").innerText = nextYear;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>-->
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("fireworksAudio");
+    const hint = document.getElementById("soundHint");
+    const btn = document.getElementById("specialBtn");
+    const popup = document.getElementById("popup");
+    const closePopup = document.getElementById("closePopup");
+
+    /* 🔊 Enable Sound */
+    function enableSound() {
+      audio.play();
+      hint.style.display = "none";
+      document.removeEventListener("click", enableSound);
+      document.removeEventListener("touchstart", enableSound);
+    }
+    document.addEventListener("click", enableSound);
+    document.addEventListener("touchstart", enableSound);
+
+    /* 🎁 Button Lock Until 2026 */
+    const unlockDate = new Date("Jan 1, 2026 00:00:00");
+
+    btn.addEventListener("click", function (e) {
+      const now = new Date();
+      if (now < unlockDate) {
+        e.preventDefault();
+        popup.style.display = "flex";
+      }
+    });
+
+    closePopup.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) popup.style.display = "none";
+    });
+  });
+
+  /* ⏳ Countdown */
+  function updateCountdown() {
+    const today = new Date();
+    const nextYear = today.getFullYear() + 1;
+    const countDate = new Date(`Jan 1, ${nextYear} 00:00:00`).getTime();
+    const now = new Date().getTime();
+
+    const gap = countDate - now;
+
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    document.getElementById("day").innerText = Math.floor(gap / day);
+    document.getElementById("hour").innerText = Math.floor((gap % day) / hour);
+    document.getElementById("minute").innerText = Math.floor((gap % hour) / minute);
+    document.getElementById("second").innerText = Math.floor((gap % minute) / second);
+    document.getElementById("year").innerText = nextYear;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+    <!-- 🔒 Popup Modal -->
+<div id="popup" class="popup-overlay">
+  <div class="popup-box">
+    <h2>⏳ Please Wait</h2>
+    <p>Wait for the year to change 🎆</p>
+    <button id="closePopup">Okay</button>
+  </div>
+</div>
+
+  </body>
+</html>
